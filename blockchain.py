@@ -31,6 +31,7 @@ class Blockchain:
 		while check_proof is False:
 			hash_operation = hashlib.sha256(
 				str(new_proof**2 - previous_proof**2).encode()).hexdigest()
+			#number of leading 0 determines difficulty
 			if hash_operation[:5] == '00000':
 				check_proof = True
 			else:
@@ -111,3 +112,4 @@ def home():
 if __name__=="__main__":
 	print("Starting API...")
 	app.run(host="127.0.0.1", port=5000)
+
