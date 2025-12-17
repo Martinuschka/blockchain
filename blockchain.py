@@ -2,7 +2,7 @@ import datetime
 import hashlib
 import json
 from flask import Flask, jsonify, render_template, request
-
+from waitress import serve
 
 class Blockchain:
 	#first block, set hash to 0
@@ -111,5 +111,9 @@ def home():
 
 if __name__=="__main__":
 	print("Starting API...")
+	
+	#--developing--
 	app.run(host="127.0.0.1", port=5000)
-
+	
+	#--productive--
+	#serve(app, host="127.0.0.1", port=5000)
