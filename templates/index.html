@@ -1,30 +1,71 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-	<meta charset="UTF-8">
-	<title>Flask Blockchain App</title>
-	<style>
-	textarea {
-		width: 100%;
-		height: 500px;
-		}
-	</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flask Blockchain App</title>
+    <style>
+        body {
+            font-family: Consolas, monospace;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            min-height: 100vh;
+            background-color: #f4f4f4;
+        }
+
+        h1 {
+            margin-top: 40px;
+            font-size: 2.5rem;
+            color: #333;
+        }
+
+        .button-container {
+            margin: 40px 0;
+            display: flex;
+            gap: 20px;
+        }
+
+        button {
+			border: none;
+			padding: 12px 24px;
+			border-radius: 10px;
+			cursor: pointer;
+			font-weight: 600;
+			font-size: 1rem;
+			letter-spacing: .01em;
+			display: inline-flex;
+			align-items: center;
+			color: #fff;
+			background-color: #20B2AA;
+        }
+
+        button:hover {
+            background-color: #008080;
+        }
+
+        textarea {
+            width: 80%;
+            height: 500px;
+            padding: 15px;
+            font-size: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            resize: none;
+        }
+    </style>
 </head>
 <body>
-	<!--<form action="/get_chain" method="GET">
-		<button type="submit">Chain</button>
-	</form>-->
-	
-	<h1>How does a blockchain work?</h1>
-
-	<button id="btn_valid">Validate</button>
-	<p>
-	<button id="btn_chain">Show Chain</button>
-	<p>
-	<button id="btn_mine">Mine Block</button>
-	<p>
-	<textarea id="chain_area" name="chain_area" readonly>Click a button to interact with blockchain...</textarea>
-
+    <h1>How does a blockchain work?</h1>
+    <div class="button-container">
+        <button id="btn_valid">Validate</button>
+        <button id="btn_chain">Show Chain</button>
+        <button id="btn_mine">Mine Block</button>
+    </div>
+    <textarea id="chain_area" name="chain_area" readonly placeholder="Click a button to interact with blockchain..."></textarea>
 	
 	<script>
 		async function fetchData(api_url){
@@ -42,5 +83,6 @@
 		document.getElementById("btn_chain").addEventListener("click", async () => fetchData("/get_chain"));
 		document.getElementById("btn_mine").addEventListener("click", async () => fetchData("/mine_block"));
 	</script>
+
 </body>
 </html>
