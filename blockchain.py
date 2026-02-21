@@ -1,7 +1,7 @@
 import datetime
 import hashlib
 import json
-from flask import Flask, jsonify, render_template, request
+from flask import Flask, jsonify, render_template
 from waitress import serve
 
 DEV_MODE = False
@@ -26,11 +26,12 @@ class Blockchain:
 		return self.chain[-1]
 
 	#proof of work and used to mine block
-	def proof_of_work(self, previous_proof):
+	@staticmethod
+	def proof_of_work(previous_proof):
 		new_proof = 1
 		check_proof = False
 
-		while check_proof is False:
+		while not check_proof:
 			hash_operation = hashlib.sha256(
 				str(new_proof**2 - previous_proof**2).encode()).hexdigest()
 			#number of leading 0 determines difficulty
@@ -41,7 +42,8 @@ class Blockchain:
 
 		return new_proof
 
-	def hash(self, block):
+	@staticmethod
+	def hash(block):
 		encoded_block = json.dumps(block, sort_keys=True).encode()
 		return hashlib.sha256(encoded_block).hexdigest()
 
@@ -97,9 +99,9 @@ def display_chain():
 #check validity of blockchain
 @app.route('/valid', methods=['GET'])
 def valid():
-	valid = blockchain.chain_valid(blockchain.chain)
+	validate = blockchain.chain_valid(blockchain.chain)
 
-	if valid:
+	if validate:
 		response = {'message': 'The Blockchain is valid.'}
 	else:
 		response = {'message': 'The Blockchain is not valid.'}
@@ -109,7 +111,7 @@ def valid():
 #show website
 @app.route('/')
 def home():
-	return render_template("index.html", chain=display_chain())
+	return render_template("index.html")
 
 if __name__=="__main__":
 	print("Starting API...")
