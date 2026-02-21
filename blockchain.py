@@ -4,6 +4,8 @@ import json
 from flask import Flask, jsonify, render_template, request
 from waitress import serve
 
+DEV_MODE = False
+
 class Blockchain:
 	#first block, set hash to 0
 	def __init__(self):
@@ -111,10 +113,8 @@ def home():
 
 if __name__=="__main__":
 	print("Starting API...")
-	
-	#--developing--
-	app.run(host="127.0.0.1", port=5000)
-	
-	#--productive--
-	#serve(app, host="0.0.0.0", port=5000)
+	if DEV_MODE:
+		app.run(host="127.0.0.1", port=5000)
+	else:
+		serve(app, host="0.0.0.0", port=5000)
 
